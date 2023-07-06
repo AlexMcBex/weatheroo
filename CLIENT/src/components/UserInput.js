@@ -17,6 +17,8 @@ const UserInput = ({ onSubmit }) => {
     onSubmit(city)
   }
 
+  
+
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" value={city} onChange={handleInputChange} placeholder="Enter city name" />
