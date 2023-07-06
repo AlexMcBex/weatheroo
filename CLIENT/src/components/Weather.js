@@ -34,40 +34,48 @@ const Weather = ({ city }) =>{
     }
   }, [city]
   )
+  let bg = ''
+  if (weatherInfo){
+    if(weatherInfo.current.is_day){
+      bg= 'weather-display-day'
+    }else{
+      bg = 'weather-display-night'
+    }
+
+  }
 
   return(
-    <div>
+    <div className={bg}>
     {weatherInfo ? (
-      <h2>Weather for <span className='city'>{city} </span>Available</h2>
+      <>
+      <h2>{weatherInfo.location.name}</h2>
+      <p>
+     Region:  {weatherInfo.location.region}<br/>  
+       Country: {weatherInfo.location.country}<br/>
+      Lat: {weatherInfo.location.lat} Lon: {weatherInfo.location.lon}
+      <hr/><h4>Condition</h4>
+      <img src={weatherInfo.current.condition.icon}/>{weatherInfo.current.condition.text} <br/>
+      <hr/><h4>Temperature</h4>
+      { weatherInfo.current.temp_f}°F - feels like { weatherInfo.current.feelslike_f}°F<br/>
+      Humidity: {weatherInfo.current.humidity}%
+      <hr/><h4>Precipitation</h4>
+      Cloud: { weatherInfo.current.cloud}% - Precipitation: { weatherInfo.current.precip_in} in.
+      <hr/><h4>Wind</h4>
+      Wind: { weatherInfo.current.wind_mph} -{ weatherInfo.current.gust_mph}  mph  { weatherInfo.current.wind_dir} - <img src={require('../img/arrow.png')} style={{transform: `rotate(${weatherInfo.current.wind_degree}deg)`}}/>
+      <hr/><h4>Air Quality</h4>
+      UV index: {weatherInfo.current.uv} - Visibility: {weatherInfo.current.vis_miles} miles - Pressure: {weatherInfo.current.pressure_mb} mbar
+      </p>
+      </>
     ):(
-      <h2>Enter the name of a city</h2>
+      <>
+      <h3>.1 Type the name of the city you are interested in <br/>
+      .2 Push the 'Search' button <br/>
+      .3 Check the weather of that city</h3>
+      <p>It is that simple, really :)</p>
+      </>
     )}
     </div>
   )
 }
 
 export default Weather
-
-
-// const weather = async(query) =>{
-//   const axios = require('axios')
-
-//   const options = {
-//     method: 'GET',
-//     url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-//     params: {q: query},
-    // headers: {
-    //   'X-RapidAPI-Key': '687ce345e8msh4527dea48c7421ap1fd768jsn5831cc069d3d',
-    //   'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-    // }
-//   }
-  
-//   try {
-//     const response = await axios.request(options)
-//     console.log(response.data)
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-
-// weather('jersey city')

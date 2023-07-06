@@ -20,9 +20,9 @@ const UserInput = ({ onSubmit }) => {
   
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={city} onChange={handleInputChange} placeholder="Enter city name" />
-      <button type="submit">Submit</button>
+    <form onSubmit={handleSubmit} className='user-input'>
+      <input type="text" value={city} onChange={handleInputChange} placeholder="Enter city name..." />
+      <button type="submit">Search</button>
     </form>
   )
 

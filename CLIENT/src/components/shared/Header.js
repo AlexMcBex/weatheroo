@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
 const Header = ({}) =>(
-	<Navbar bg='dark' variant='dark' expand='md'>
+	<Navbar bg='primary' variant='dark' expand='md'>
 		<Navbar.Brand className="me-4 p-2">
                 Weatheroo
         </Navbar.Brand>
