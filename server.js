@@ -1,27 +1,28 @@
-// DEPENDENCIES
+const { MongoClient } = require('mongodb')
 const express = require('express')
-const mongoose = require('mongoose')
 
-// EXPRESS
-const app = express()
+const url = 'mongodb://localhost:27017'
+const dbName = 'weatheroo'
+const client = new MongoClient(url)
 
-// DB
-const db = require('./config/db')
-mongoose.connect(db, {
-	useNewUrlParser: true,
-})
+async function startServer() {
+	try {
 
-//  PORTS
-const serverDevPort = 8000
-// const clientDevPort = 3000
-const port = process.env.PORT || serverDevPort
+		await client.connect()
+		console.log('Connected successfully to MongoDB server')
 
+		const db = client.db(dbName)
 
-// ROUTES
+		const app = express()
+		const port = process.env.PORT || 8000
 
+		app.listen(port, function () {
+			console.log(`Server started on port ${port}`)
+		})
 
+	} catch (err) {
+		console.error('Error connecting to MongoDB:', err)
+	}
+}
 
-// RUN API
-app.listen(port, () => {
-	console.log('listening on port ' + port)
-})
+startServer()
