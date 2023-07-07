@@ -1,28 +1,25 @@
-const { MongoClient } = require('mongodb')
 const express = require('express')
+const mongoose = require('mongoose')
+const app = express()
+const port = 8000
 
-const url = 'mongodb://localhost:27017'
-const dbName = 'weatheroo'
-const client = new MongoClient(url)
+// Middleware
+app.use(express.json())
 
-async function startServer() {
-	try {
+// Routes
+app.get('/', (req, res) => {
+  res.send('Weatheroo BackEnd')
+})
 
-		await client.connect()
-		console.log('Connected successfully to MongoDB server')
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/weatheroo', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('You are connected to MongoDB'))
+  .catch((err) => console.log(err))
 
-		const db = client.db(dbName)
-
-		const app = express()
-		const port = process.env.PORT || 8000
-
-		app.listen(port, function () {
-			console.log(`Server started on port ${port}`)
-		})
-
-	} catch (err) {
-		console.error('Error connecting to MongoDB:', err)
-	}
-}
-
-startServer()
+// Start the server
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
